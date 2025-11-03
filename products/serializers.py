@@ -1,7 +1,7 @@
 from rest_framework import serializers
-from .models import Item
+from .models import Coupon
 
-class ItemSerializer(serializers.ModelSerializer):
+class CouponSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Item
-        fields = '__all__'
+        model = Coupon
+        field = ['code','discount','is_active','valid_from', 'valid_until']
