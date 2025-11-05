@@ -45,6 +45,16 @@ INSTALLED_APPS = [
     'orders',
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES':[
+        'rest_framework.Authentication.SessionAuthentication',
+        'rest_framework.Authentication.TokenAuthentication',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES':[
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+}
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
