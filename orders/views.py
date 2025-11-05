@@ -4,8 +4,14 @@ from rest_framework import status
 from django.utils import timezone
 from .models import Coupon
 from .serializers import CouponSerializer
+from rest_framework.permissions import IsAuthenticated
+
+
 
 class CouponValidationView(APIView):
+    permissions_classes= [IsAuthenticated]
+    def get(self, request):
+        coupon = Coupon.objects.filter(user=request.use)
     def post(self , response):
         code = request.data.get('code')
 
