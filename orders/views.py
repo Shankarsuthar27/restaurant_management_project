@@ -11,7 +11,10 @@ from rest_framework.permissions import IsAuthenticated
 class CouponValidationView(APIView):
     permissions_classes= [IsAuthenticated]
     def get(self, request):
-        coupon = Coupon.objects.filter(user=request.use)
+        coupon = Coupon.objects.filter(user=request.user)
+        serializer = OrderSerializer(orders, many=True)
+        return Response(serializer.data)
+
     def post(self , response):
         code = request.data.get('code')
 
