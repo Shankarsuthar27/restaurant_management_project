@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+
 class Coupon(models.Model):
     code= models.CharField(max_length=50, unique=True)
     discount= models.DecimalField(max_digit=5,decimal_place=2)
