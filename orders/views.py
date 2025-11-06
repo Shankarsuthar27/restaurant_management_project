@@ -5,6 +5,9 @@ from django.utils import timezone
 from .models import Coupon
 from .serializers import CouponSerializer
 from rest_framework.permissions import IsAuthenticated
+from rest_framework import viewsets
+from .models import MenuCategory
+from .serializers import MenuCategorySerializer
 
 
 
@@ -32,3 +35,14 @@ class CouponValidationView(APIView):
 
                 serializer = CouponSerializer(coupon)
                 return Response({"success": True, "coupon": serializer.data}, status=status.HTTP_200_OK)
+
+class MenuCategoryViewSet(viewsets.ModelViewSet):
+    queryset= MenuCategory.objects.all()
+    serializer_class= MenuCategorySerializer
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        search_query = self.request.query_params.get('search', None)
+        if search_query:
+            queryset= queryset.filter(name__icontains=search_query)
+            return queryset
