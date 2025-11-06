@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from .models import MenuCategory
 
 class Coupon(models.Model):
     code= models.CharField(max_length=50, unique=True)
@@ -19,4 +20,13 @@ class Order(models.Model):
 
     def __str__(self):
         return f"Order #{self.id}- {self.customer_name}"       
-# Create your models here.
+
+class NutritionalInformation(models.Model):
+    menu_category = models.OneToOneField(MenuCategory, on_delete= models.CASCADE, related_name='nutrition_info')
+    calories = models.IntegerField()
+    fat = models.DecimalField(max_digit=5, decimal_place=2)
+    protein = models.DecimalField(max_digit=5, decimal_place=2)
+    carbohydrates = models.DecimalField(max_digit=5, decimal_place=2)
+
+    def __str__(self):
+        return f"{self.menu_category.name}- {self.calories} cal"
