@@ -17,3 +17,7 @@ def generate_coupon_code(length=10):
 
         if not Coupon.objects.filter(code=code).exists():
             return code
+
+def calculate_tip_amount(total, tip_percentage):
+    tip= total*(tip_percentage/100)
+    return round(tip, 2)
